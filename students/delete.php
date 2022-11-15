@@ -1,13 +1,20 @@
 <?php
 
 include ("../init.php");
+use Models\Student;
 
-//
+try {
+$_id = $_GET['_id'];
 
-$collection = $client->local->students;
-$studentId = $_GET['studentId'];
-$all_students = $collection->deleteOne(['studentId'=>$studentId]);
+$Id = new MongoDB\BSON\ObjectId("$_id");
+
+$student= new Student('', '', '', '', '', '','', '', '');
+$student->setConnection($connection);
+$student->deleteStudent($Id);
 
 echo "<script>window.location.href='index.php';</script>";
 exit;
-
+}
+catch (Exception $e) {
+    error_log($e->getMessage());
+}

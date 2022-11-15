@@ -1,38 +1,31 @@
 <?php
 
 include ("../init.php");
+use Models\Student;
 
-$collection = $client->local->students;
-//var_dump($update_student)
 try {
-        if (isset($_POST['_id'])) {
+    if (isset($_POST['_id'])) {
+    
+    $_id = $_POST['_id'];
+    $studentId = $_POST['studentId'];
+    $firstName = $_POST['firstName'];
+    $lastName = $_POST['lastName'];
+    $birthdate = $_POST['birthdate'];
+    $address = $_POST['address'];
+    $program = $_POST['program'];
+    $contactNumber = $_POST['contactNumber'];
+    $emergencyContact = $_POST['emergencyContact'];
 
-        $studentId = $_POST['studentId'];
-        $firstName = $_POST['firstName'];
-        $lastName = $_POST['lastName'];
-        $birthdate = $_POST['birthdate'];
-        $address = $_POST['address'];
-        $program = $_POST['program'];
-        $contactNumber = $_POST['contactNumber'];
-        $emergencyContact = $_POST['emergencyContact'];
+    $Id = new MongoDB\BSON\ObjectId("$_id");
 
-    $all_students = $collection->updateOne(['_id'=> $_POST['_id']],
-    ['$set'=>
-    [
-        'studentId' => $studentId,
-        'firstName' => $firstName,
-        'lastName' => $lastName,
-        'birthdate' => $birthdate,
-        'address' => $address,
-        'program' => $program,
-        'contactNumber' => $contactNumber,
-        'emergencyContact' => $emergencyContact,
-    ]]);
+    $student= new Student('', '', '', '', '', '','', '', '');
+    $student->setConnection($connection);
+    $student->editStudent($Id, $studentId, $firstName, $lastName, $birthdate, $address, $program, $contactNumber, $emergencyContact);
 
-    echo "<script>window.location.href='index.php';</script>";
+    echo "<script>window.location.href='index.php';</script>"; 
     exit;
 
-        }
+    }
     }
     catch (Exception $e) {
         error_log($e->getMessage());

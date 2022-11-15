@@ -1,31 +1,25 @@
 <?php 
 
 include ("../init.php");
+use Models\Student;
 
-//
-$collection = $client->local->students;
-//$studentId = $_GET['studentId'];
+$_id = $_GET['_id'];
+$Id = new MongoDB\BSON\ObjectId("$_id");
 
-$mongoId = $_GET['id'];
-//var_dump($mongoId);
+$student= new Student('', '', '', '', '', '','', '', '');
+$student->setConnection($connection);
+$edit_student = $student->getById($Id);
 
-$update_student = $collection->findOne(['_id'=> new MongoDB\BSON\ObjectId("$mongoId")]);
-//var_dump($update_student);
-//var_dump($update_student->firstName);
-//exit;
-// $firstName = 
-//var_dump($update_student->firstName);
-$_id = $update_student->_id;
-$studentId = $update_student->studentId;
-$firstName = $update_student->firstName;
-$lastName = $update_student->lastName;
-$birthdate = $update_student->birthdate;
-$address = $update_student->address;
-$program = $update_student->program;
-$contactNumber = $update_student->contactNumber;
-$emergencyContact = $update_student->emergencyContact;
+$_id = $edit_student->_id;
+$studentId = $edit_student->studentId;
+$firstName = $edit_student->firstName;
+$lastName = $edit_student->lastName;
+$birthdate = $edit_student->birthdate;
+$address = $edit_student->address;
+$program = $edit_student->program;
+$contactNumber = $edit_student->contactNumber;
+$emergencyContact = $edit_student->emergencyContact;
 
-//var_dump($studentId);
+$template = $mustache->loadTemplate('edit.mustache');
 
-$template = $mustache->loadTemplate('update.mustache');
-echo $template->render(compact('update_student','_id','studentId','firstName','lastName','birthdate','address','program','contactNumber','emergencyContact'));
+echo $template->render(compact('edit_student','_id','studentId','firstName','lastName','birthdate','address','program','contactNumber','emergencyContact'));

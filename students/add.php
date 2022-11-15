@@ -1,34 +1,17 @@
 <?php
 
 include ("../init.php");
-
+use Models\Student;
 //
 $template = $mustache->loadTemplate('add.mustache');
 echo $template->render();
-
+//var_dump($db);
 try {
 	if (isset($_POST['firstName'])) {
 
-        $studentId = $_POST['studentId'];
-        $firstName = $_POST['firstName'];
-        $lastName = $_POST['lastName'];
-        $birthdate = $_POST['birthdate'];
-        $address = $_POST['address'];
-        $program = $_POST['program'];
-        $contactNumber = $_POST['contactNumber'];
-        $emergencyContact = $_POST['emergencyContact'];
-
-        $collection = $client->local->students;
-        $insertOneResult = $collection->insertOne([
-            'studentId' => $studentId,
-            'firstName' => $firstName,
-            'lastName' => $lastName,
-            'birthdate' => $birthdate,
-            'address' => $address,
-            'program' => $program,
-            'contactNumber' => $contactNumber,
-            'emergencyContact' => $emergencyContact,
-        ]);
+        $addStudent = new Student($_POST['studentId'], $_POST['firstName'], $_POST['lastName'], $_POST['birthdate'], $_POST['address'], $_POST['program'],$_POST['contactNumber'], $_POST['emergencyContact']);
+        $addStudent->setConnection($connection);
+        $addStudent->addStudent();
 
 		echo "<script>window.location.href='index.php';</script>";
 		exit;

@@ -27,6 +27,7 @@ class ComposerStaticInite34d8292aec1014d2be0959f73ac53a8
         'M' => 
         array (
             'MongoDB\\' => 8,
+            'Models\\' => 7,
         ),
         'J' => 
         array (
@@ -62,6 +63,10 @@ class ComposerStaticInite34d8292aec1014d2be0959f73ac53a8
         'MongoDB\\' => 
         array (
             0 => __DIR__ . '/..' . '/mongodb/mongodb/src',
+        ),
+        'Models\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/models',
         ),
         'Jean85\\' => 
         array (
